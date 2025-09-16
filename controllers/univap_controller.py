@@ -15,12 +15,12 @@ def parse_date(date_str: str):
 def format_comunicados(data):
     resp = []
 
-    hoje = datetime.today().date()
+    #hoje = datetime.today().date()
 
     for comunicado in data:
-        time_str = comunicado[5].replace(" 00:00:00", "")
-        time = parse_date(time_str)
-        if time == hoje:
+            time_str = comunicado[5].replace(" 00:00:00", "")
+        # time = parse_date(time_str)
+        # if time == hoje:
             resp.append({
                 "comunicado": comunicado[1],
                 "data": time_str
