@@ -3,6 +3,11 @@ from urllib.parse import unquote
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, status, Request
 from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+import os
+
+# Carrega as variáveis de ambiente do arquivo .env
+load_dotenv()
 
 def parse_date(date_str: str):
     for fmt in ("%d/%m/%Y", "%m/%d/%Y"):
@@ -43,8 +48,8 @@ def call_api():
     login_data = {
         "origem": "form-aluno",
         "url_origem": "/AOnline/AOnline/avisos/T016D.tp",
-        "username": "50230574",
-        "password": "06102007",
+        "username": os.getenv("UNIVAP_USERNAME"),
+        "password": os.getenv("UNIVAP_PASSWORD"),
     }
     login_headers = {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -90,13 +95,12 @@ def call_api():
         return {'status': False, 'message': 'Erro na requisição', 'step': 'AJAX Avisos'}
     return {'status': True, 'response': resp.json()}
 
-KEY = "sk_live_7d8f2e1a0b934c3c9f67a4b2d8d5f11e"
-
 router = APIRouter(prefix="/crawler_univap", tags=['crawler_univap'])
 @router.get("/", status_code=status.HTTP_200_OK)
 def get_comunicados_today(request: Request):
     auth = request.headers.get("Authorization")
-    if auth != f"Bearer {KEY}":
+    api_key = os.getenv("API_KEY")
+    if auth != f"Bearer {api_key}":
         raise HTTPException(status_code=401, detail="Unauthorized")
     ret = call_api()
     if ret.get('status'):
@@ -105,5 +109,3 @@ def get_comunicados_today(request: Request):
 
 #https://portal.univap.br/AOnline/XSRFScript
 #https://portal.univap.br/AOnline/AOnline/avisos/T016D.ajax
-
-#80B3BF2DACB7431580B913B01DBAB7A2
