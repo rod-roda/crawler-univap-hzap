@@ -85,7 +85,7 @@ A API estará disponível em `http://localhost:8000`
 
 **Headers:**
 ```
-Authorization: Bearer sk_live_7d8f2e1a0b934c3c9f67a4b2d8d5f11e
+Authorization: Bearer seu_token_aqui
 ```
 
 **Resposta de Sucesso (200):**
