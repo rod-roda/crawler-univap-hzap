@@ -103,7 +103,7 @@ Authorization: Bearer seu_token_aqui
 
 **Exemplo de uso:**
 ```bash
-curl -H "Authorization: Bearer sk_live_7d8f2e1a0b934c3c9f67a4b2d8d5f11e" \
+curl -H "Authorization: Bearer seu_token_aqui" \
      http://localhost:8000/crawler_univap/
 ```
 
